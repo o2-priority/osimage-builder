@@ -1,0 +1,78 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "{{ user `region`}}",
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "*ubuntu-xenial-16.04-amd64-server-*",
+          "root-device-type": "ebs"
+        },
+        "owners": ["099720109477"],
+        "most_recent": true
+      },
+      "instance_type": "{{ user `aws_instance_type`}}",
+      "ssh_username": "ubuntu",
+      "ami_name": "{{ user `project`}}-{{ user `role` }}-ubuntu-16.04-amd64-ebs-{{ user `version`}}",
+      "ami_virtualization_type": "hvm",
+      "run_tags": {
+        "Name": "{{ user `project`}}-{{ user `role` }}-ubuntu-16.04-amd64-ebs-{{ user `version`}}",
+        "Project": "{{user `project`}}",
+        "Role": "{{user `role`}}",
+        "Region": "{{ user `region` }}",
+        "OS_Version": "Ubuntu"
+      },
+      "tags": {
+        "Name": "{{ user `project`}}-{{ user `role` }}-ubuntu-16.04-amd64-ebs-{{ user `version`}}",
+        "Project": "{{user `project`}}",
+        "Role": "{{user `role`}}",
+        "Region": "{{ user `region` }}",
+        "OS_Version": "Ubuntu",
+        "Version": "{{ user `version` }}"
+      },
+      "ami_users": ["948420901076","045281700019"],
+      "ami_block_device_mappings": [{
+        "delete_on_termination": true,
+        "device_name": "/dev/sda1",
+        "volume_size": 10,
+        "volume_type": "gp2"
+      }],
+      "launch_block_device_mappings": [{
+        "delete_on_termination": true,
+        "device_name": "/dev/sda1",
+        "volume_size": 10,
+        "volume_type": "gp2"
+      }]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "remote_path": "/var/tmp/script.sh",
+      "execute_command": "sudo -E bash {{ .Path }}",
+      "inline": [
+         "true || apt-key adv --keyserver keyserver.ubuntu.com --recv 1E9377A2BA9EF27F",
+         "true || apt-get update && apt-get upgrade -y"
+       ]
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "scripts": [
+        "scripts/ubuntu/update.sh",
+        "scripts/ubuntu/ansible.sh",
+        "scripts/common/sshd.sh",
+        "scripts/ubuntu/cleanup.sh",
+        "scripts/common/minimize.sh"
+      ]
+    }
+  ],
+  "variables": {
+    "project": "",
+    "region": "eu-west-1",
+    "role": "base",
+    "version": "{{isotime \"20060102150405\"}}",
+    "aws_instance_type": "t2.small"
+  }
+}
