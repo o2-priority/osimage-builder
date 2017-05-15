@@ -1,0 +1,11 @@
+---
+version: '3'
+services:
+  base-build:
+    build: .
+    image: artifact-builder:latest
+    working_dir: /root/artifact-builder
+    command: packer build -var "project=${PROJECT}" ubuntu-16.04-amd64-aws-ebs.json
+    volumes:
+      - .:/root/artifact-builder:ro
+      - ~/.aws/:/root/.aws:ro
