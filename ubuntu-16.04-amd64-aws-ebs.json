@@ -61,8 +61,8 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
         "scripts/ubuntu/update.sh",
-        "scripts/ubuntu/ansible.sh",
         "scripts/common/sshd.sh",
+        "scripts/ubuntu/ansible.sh",
         "scripts/ubuntu/cleanup.sh",
         "scripts/common/minimize.sh"
       ]
