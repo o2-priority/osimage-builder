@@ -10,20 +10,19 @@ sed -i.bak 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades
 apt-get -y update
 
 # update package index on boot
-cat <<EOF >/etc/init/refresh-apt.conf
+cat << EOF > /etc/init/refresh-apt.conf
 description "update package index"
 start on networking
 task
-exec /usr/bin/apt-get updat0e
+exec /usr/bin/apt-get update
 EOF
 
 # Disable periodic activities of apt
-cat <<EOF >/etc/apt/apt.conf.d/10disable-periodic
-APT::Periodic::Enable "0"
+cat << EOF > /etc/apt/apt.conf.d/10disable-periodic
+APT::Periodic::Enable "0";
 EOF
 
 # Upgrade all installed packages incl. kernel and kernel headers
-#apt-get -y -o Dpkg::Options::="--force-confnew" dist-upgrade;
 export DEBIAN_FRONTEND=noninteractive
 apt-get dist-upgrade -y -o Dpkg::Options::="--force-confnew"
 reboot
