@@ -6,7 +6,7 @@
       "source_ami_filter": {
         "filters": {
           "virtualization-type": "hvm",
-          "name": "*ubuntu-xenial-16.04-amd64-server-*",
+          "name": "*ubuntu-{{ user `os_release` }}-amd64-server-*",
           "root-device-type": "ebs"
         },
         "owners": ["099720109477"],
@@ -14,17 +14,17 @@
       },
       "instance_type": "{{ user `aws_instance_type`}}",
       "ssh_username": "ubuntu",
-      "ami_name": "{{ user `project`}}-{{ user `role` }}-ubuntu-16.04-amd64-ebs-{{ user `version`}}",
+      "ami_name": "{{ user `project`}}-{{ user `role` }}-ubuntu-{{ user `os_release` }}-amd64-ebs-{{ user `version`}}",
       "ami_virtualization_type": "hvm",
       "run_tags": {
-        "Name": "{{ user `project`}}-{{ user `role` }}-ubuntu-16.04-amd64-ebs-{{ user `version`}}",
+        "Name": "{{ user `project`}}-{{ user `role` }}-ubuntu-{{ user `os_release` }}-amd64-ebs-{{ user `version`}}",
         "Project": "{{user `project`}}",
         "Role": "{{user `role`}}",
         "Region": "{{ user `region` }}",
         "OS_Version": "Ubuntu"
       },
       "tags": {
-        "Name": "{{ user `project`}}-{{ user `role` }}-ubuntu-16.04-amd64-ebs-{{ user `version`}}",
+        "Name": "{{ user `project`}}-{{ user `role` }}-ubuntu-{{ user `os_release` }}-amd64-ebs-{{ user `version`}}",
         "Project": "{{user `project`}}",
         "Role": "{{user `role`}}",
         "Region": "{{ user `region` }}",
@@ -70,6 +70,7 @@
   ],
   "variables": {
     "project": "",
+    "os_release": "",
     "region": "eu-west-1",
     "role": "base",
     "version": "{{isotime \"20060102150405\"}}",

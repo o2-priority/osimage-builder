@@ -5,11 +5,11 @@ Build virtual machine images using packer
 We currently only have one image so this is simply
 ```
 export PROJECT="YourProject"
-packer build -var "project=${PROJECT}" ubuntu-16.04-amd64-aws-ebs.json
+export OS_RELEASE="trusty-14.04"
+packer build -var "project=${PROJECT}" -var "os_release=${OS_RELEASE}" ubuntu-amd64-aws-ebs.json
 ```
 
 ### Build with Docker
 ```
-export PROJECT="YourProject"
-docker-compose up
+PROJECT="YourProject" OS_RELEASE="trusty-14.04" docker-compose up
 ```
