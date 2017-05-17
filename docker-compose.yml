@@ -5,6 +5,8 @@ services:
     build: .
     image: artifact-builder:latest
     working_dir: /root/artifact-builder
+    environment:
+      AWS_PROFILE: "${AWS_PROFILE}"
     command: packer build -var "project=${PROJECT}" -var "os_release=${OS_RELEASE}" ubuntu-amd64-aws-ebs.json
     volumes:
       - .:/root/artifact-builder:ro
