@@ -22,6 +22,9 @@ cat << EOF > /etc/apt/apt.conf.d/10disable-periodic
 APT::Periodic::Enable "0";
 EOF
 
+#Add GPG signing key for ubuntu repos
+apt-key adv --keyserver keyserver.ubuntu.com --recv 1E9377A2BA9EF27F
+
 # Upgrade all installed packages incl. kernel and kernel headers
 export DEBIAN_FRONTEND=noninteractive
 apt-get dist-upgrade -y -o Dpkg::Options::="--force-confnew"
