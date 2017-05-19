@@ -1,6 +1,13 @@
 {
   "builders": [
     {
+       "type": "virtualbox-ovf",
+       "source_path": "packer-ubuntu-{{ user `os_release` }}-amd64-fresh-virtualbox/ubuntu-{{ user `os_release` }}-amd64-fresh.ovf",
+       "ssh_username": "vagrant",
+       "ssh_password": "vagrant",
+       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now"
+    },
+    {
       "type": "amazon-ebs",
       "region": "{{ user `region`}}",
       "source_ami_filter": {
@@ -46,6 +53,12 @@
       }]
     }
   ],
+  "post-processors": [
+    {
+      "output": "builds/{{ user `role` }}-ubuntu-{{ user `os_release` }}-amd64-vagrant.box",
+      "type": "vagrant"
+    }
+  ],
   "provisioners": [
     {
       "type": "shell",
@@ -53,6 +66,8 @@
       "scripts": [
         "scripts/ubuntu/update.sh",
         "scripts/common/sshd.sh",
+        "scripts/ubuntu/networking.sh",
+        "scripts/ubuntu/sudoers.sh",
         "scripts/ubuntu/ansible.sh",
         "scripts/ubuntu/cleanup.sh",
         "scripts/common/minimize.sh"

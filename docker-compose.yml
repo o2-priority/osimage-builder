@@ -7,7 +7,7 @@ services:
     working_dir: /root/artifact-builder
     environment:
       AWS_PROFILE: "${AWS_PROFILE}"
-    command: packer build -var "project=${PROJECT}" -var "os_release=${OS_RELEASE}" ubuntu-amd64-aws-ebs.json
+    command: packer build -only=amazon-ebs -var "project=${PROJECT}" -var "os_release=${OS_RELEASE}" ubuntu-base-amd64.json
     volumes:
       - .:/root/artifact-builder:ro
       - ~/.aws/:/root/.aws:ro
