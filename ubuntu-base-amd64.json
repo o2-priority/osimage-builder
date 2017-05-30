@@ -75,9 +75,9 @@
     }
   ],
   "variables": {
-    "project": "",
-    "os_release": "",
-    "region": "eu-west-1",
+    "project": "{{env `PROJECT`}}",
+    "os_release": "{{env `OS_RELEASE`}}",
+    "region": "{{env `AWS_DEFAULT_REGION`}}",
     "role": "base",
     "version": "{{isotime \"20060102150405\"}}",
     "aws_instance_type": "t2.small"

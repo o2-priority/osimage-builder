@@ -6,10 +6,13 @@ services:
     image: artifact-builder:latest
     working_dir: /root/artifact-builder
     environment:
-      AWS_PROFILE: "${AWS_PROFILE}"
-      PROJECT: "${PROJECT}"
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+      AWS_DEFAULT_REGION: "eu-west-1"
+      AWS_PROFILE:
+      PROJECT:
       OS_RELEASE: "trusty-14.04"
-    command: packer build -only=amazon-ebs -var "project=${PROJECT}" -var "os_release=${OS_RELEASE}" ubuntu-base-amd64.json
+    command: packer build -only=amazon-ebs ubuntu-base-amd64.json
     volumes:
       - .:/root/artifact-builder:ro
       - ~/.aws/:/root/.aws:ro
