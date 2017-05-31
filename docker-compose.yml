@@ -9,8 +9,8 @@ services:
       AWS_ACCESS_KEY_ID:
       AWS_SECRET_ACCESS_KEY:
       AWS_DEFAULT_REGION: "eu-west-1"
-      AWS_PROFILE:
-      PROJECT:
+      AWS_PROFILE: "default"
+      PROJECT: "none"
       OS_RELEASE: "trusty-14.04"
     command: packer build -only=amazon-ebs ubuntu-base-amd64.json
     volumes:
