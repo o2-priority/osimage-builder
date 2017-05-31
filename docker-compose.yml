@@ -12,7 +12,7 @@ services:
       AWS_PROFILE: "default"
       PROJECT: "none"
       OS_RELEASE: "trusty-14.04"
-    command: packer build -only=amazon-ebs ubuntu-base-amd64.json
+    command: packer build ubuntu-base-amd64-ebs.json
     volumes:
       - .:/root/artifact-builder:ro
       - ~/.aws/:/root/.aws:ro
