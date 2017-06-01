@@ -8,11 +8,13 @@ services:
     environment:
       AWS_ACCESS_KEY_ID:
       AWS_SECRET_ACCESS_KEY:
-      AWS_DEFAULT_REGION: "eu-west-1"
-      AWS_PROFILE: "default"
-      PROJECT: "none"
-      OS_RELEASE: "trusty-14.04"
-    command: packer build ubuntu-base-amd64-ebs.json
+    command: >
+      sh -c "export OS_RELEASE=${OS_RELEASE:-trusty-14.04};
+             export PROJECT=${PROJECT:-none};
+             export AWS_PROFILE=${AWS_PROFILE:-default};
+             export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-eu-west-1};
+             env;
+             packer build ubuntu-base-amd64-ebs.json"
     volumes:
       - .:/root/artifact-builder:ro
       - ~/.aws/:/root/.aws:ro
