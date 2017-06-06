@@ -34,13 +34,13 @@ dpkg --list \
     | xargs apt-get -y purge
 
 # Delete X11 libraries
-apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6
+apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6 || true
 
 # Delete obsolete networking
-apt-get -y purge ppp pppconfig pppoeconf
+apt-get -y purge ppp pppconfig pppoeconf || true
 
 # Delete oddities
-apt-get -y purge popularity-contest installation-report command-not-found command-not-found-data friendly-recovery
+apt-get -y purge popularity-contest installation-report command-not-found command-not-found-data friendly-recovery || true
 
 apt-get -y autoremove
 apt-get -y clean
