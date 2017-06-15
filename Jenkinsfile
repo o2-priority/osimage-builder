@@ -1,5 +1,3 @@
-def project = env.PROJECT
-
 stage('Build') {
   node {
     checkout scm
