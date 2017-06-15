@@ -4,9 +4,7 @@ stage('Build') {
   node {
     checkout scm
     sh('''
-        export TEST1=${project}
-        export TEST2=${PROJECT}
-        export TEST3=project
+        export PROJECT=${PROJECT}
         env
         docker-compose up --no-color
     ''')
