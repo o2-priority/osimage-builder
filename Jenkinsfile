@@ -1,10 +1,9 @@
-def project = env.PROJECT
 
 stage('Build') {
   node {
     checkout scm
-    env.PROJECT=project
     sh('''
+        PROJECT=${PROJECT}
         env
         docker-compose up --no-color
     ''')
