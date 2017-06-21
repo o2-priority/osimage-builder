@@ -1,0 +1,68 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "{{ user `region`}}",
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "{{ user `project`}}-base-ubuntu-{{ user `os_release` }}-amd64-ebs-*",
+          "root-device-type": "ebs"
+        },
+        "owners": ["218067387106"],
+        "most_recent": true
+      },
+      "instance_type": "{{ user `aws_instance_type`}}",
+      "ssh_username": "ubuntu",
+      "ami_name": "{{ user `project`}}-{{ user `role` }}-ubuntu-{{ user `os_release` }}-amd64-ebs-{{ user `version`}}",
+      "ami_virtualization_type": "hvm",
+      "run_tags": {
+        "Name": "{{ user `project`}}-{{ user `role` }}-ubuntu-{{ user `os_release` }}-amd64-ebs-{{ user `version`}}",
+        "Project": "{{user `project`}}",
+        "Role": "{{user `role`}}",
+        "Region": "{{ user `region` }}",
+        "OS_Version": "Ubuntu"
+      },
+      "tags": {
+        "Name": "{{ user `project`}}-{{ user `role` }}-ubuntu-{{ user `os_release` }}-amd64-ebs-{{ user `version`}}",
+        "Project": "{{user `project`}}",
+        "Role": "{{user `role`}}",
+        "Region": "{{ user `region` }}",
+        "OS_Version": "Ubuntu",
+        "Version": "{{ user `version` }}"
+      },
+      "ami_users": ["948420901076","045281700019"],
+      "ami_block_device_mappings": [{
+        "delete_on_termination": true,
+        "device_name": "/dev/sda1",
+        "volume_size": 10,
+        "volume_type": "gp2"
+      }],
+      "launch_block_device_mappings": [{
+        "delete_on_termination": true,
+        "device_name": "/dev/sda1",
+        "volume_size": 10,
+        "volume_type": "gp2"
+      }]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "scripts": [
+        "scripts/ubuntu/docker.sh",
+        "scripts/ubuntu/cleanup.sh",
+        "scripts/common/minimize.sh"
+      ]
+    }
+  ],
+  "variables": {
+    "project": "{{env `PROJECT`}}",
+    "os_release": "{{env `OS_RELEASE`}}",
+    "region": "{{env `AWS_DEFAULT_REGION`}}",
+    "role": "docker",
+    "version": "{{isotime \"20060102150405\"}}",
+    "aws_instance_type": "t2.small"
+  }
+}

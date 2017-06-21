@@ -1,0 +1,37 @@
+---
+version: '3'
+services:
+  base-build:
+    build: .
+    image: artifact-builder:latest
+    working_dir: /root/artifact-builder
+    environment:
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+    command: >
+      sh -c "export OS_RELEASE=${OS_RELEASE:-trusty-14.04};
+             export PROJECT=${PROJECT:-microdc};
+             export AWS_PROFILE=${AWS_PROFILE:-default};
+             export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-eu-west-1};
+             env;
+             packer build ubuntu-base-amd64-ebs.json"
+    volumes:
+      - .:/root/artifact-builder:ro
+      - ~/.aws/:/root/.aws:ro
+  docker-build:
+    build: .
+    image: artifact-builder:latest
+    working_dir: /root/artifact-builder
+    environment:
+      AWS_ACCESS_KEY_ID:
+      AWS_SECRET_ACCESS_KEY:
+    command: >
+      sh -c "export OS_RELEASE=${OS_RELEASE:-trusty-14.04};
+             export PROJECT=${PROJECT:-microdc};
+             export AWS_PROFILE=${AWS_PROFILE:-default};
+             export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-eu-west-1};
+             env;
+             packer build ubuntu-docker-amd64-ebs.json"
+    volumes:
+      - .:/root/artifact-builder:ro
+      - ~/.aws/:/root/.aws:ro

@@ -1,0 +1,36 @@
+{
+  "builders": [
+    {
+       "type": "virtualbox-ovf",
+       "source_path": "packer-ubuntu-{{ user `os_release` }}-amd64-fresh-virtualbox/ubuntu-{{ user `os_release` }}-amd64-fresh.ovf",
+       "ssh_username": "vagrant",
+       "ssh_password": "vagrant",
+       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now"
+    }
+  ],
+  "post-processors": [
+    {
+      "output": "builds/{{ user `role` }}-ubuntu-{{ user `os_release` }}-amd64-vagrant.box",
+      "type": "vagrant"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "scripts": [
+        "scripts/common/virtualbox.sh",
+        "scripts/ubuntu/docker.sh",
+        "scripts/ubuntu/cleanup.sh",
+        "scripts/common/minimize.sh"
+      ]
+    }
+  ],
+  "variables": {
+    "os_release": "{{env `OS_RELEASE`}}",
+    "region": "{{env `AWS_DEFAULT_REGION`}}",
+    "role": "docker",
+    "version": "{{isotime \"20060102150405\"}}",
+    "aws_instance_type": "t2.small"
+  }
+}
