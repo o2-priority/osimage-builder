@@ -51,6 +51,6 @@ builds/base-ubuntu-trusty-14.04-amd64-vagrant.box
 
 ### Use vagrant to bring up a role locally
 ```
-vagrant box add builds/base-ubuntu-trusty-14.04-amd64-vagrant.box
+vagrant box add builds/base-ubuntu-trusty-14.04-amd64-vagrant.box --name base-ubuntu-trusty-14.04-amd64-vagrant.box
 vagrant up
 ```
