@@ -1,0 +1,11 @@
+hosts_defaults: &hosts_defaults
+  :cpu: 2
+  :memory: 1024
+
+hosts:
+  base:
+    <<: *hosts_defaults
+    :role: base
+  docker:
+    <<: *hosts_defaults
+    :role: docker

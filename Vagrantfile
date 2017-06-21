@@ -1,15 +1,29 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+#\
+
+require 'yaml'
+
+hosts = YAML.load_file('./vagrant_hosts.yaml')['hosts']
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "base-ubuntu-trusty-14.04-amd64-vagrant"
-  config.vm.synced_folder "/tmp", "/vagrant"
+  hosts.each do |name, host|
+    config.vm.define name do |host_config|
 
-  config.vm.provider "virtualbox" do |vb|
-    # Display the VirtualBox GUI when booting the machine
-    vb.gui = false
+      host_config.vm.box = "#{host[:role]}-ubuntu-trusty-14.04-amd64-vagrant"
+      host_config.vm.hostname = "#{name}.#{host[:role]}.internal"
+      host_config.vm.synced_folder ".", "/vagrant"
 
-    # Customize the amount of memory on the VM:
-    vb.memory = "1024"
+      host_config.vm.provider "virtualbox" do |vb|
+        vb.name = name
+        vb.gui = false
+        vb.cpus   = 2
+        vb.memory = 2048
+        #vb.customize [
+        #  "modifyvm", :id
+        #]
+
+      end
+    end
   end
 end
