@@ -14,7 +14,7 @@ services:
              export AWS_PROFILE=${AWS_PROFILE:-default};
              export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-eu-west-1};
              env;
-             packer build ubuntu-base-amd64-ebs.json"
+             packer build ${TEMPLATE:-ubuntu-base-amd64-ebs.json}"
     volumes:
       - .:/root/artifact-builder:ro
       - ~/.aws/:/root/.aws:ro
