@@ -1,7 +1,7 @@
-pipelineJob('artifact-builder') {
+pipelineJob('osimage-builder') {
   logRotator {
     daysToKeep(14)
-    artifactNumToKeep(3)
+    osimageNumToKeep(3)
   }
   triggers {
     scm('H/2 * * * *')
@@ -11,7 +11,7 @@ pipelineJob('artifact-builder') {
       scm {
         git {
           remote {
-            github('alanplatt/artifact-builder', 'ssh')
+            github('alanplatt/osimage-builder', 'ssh')
             credentials('microdc-ci-user-git-creds-id')
           }
           branch('*/master')

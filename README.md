@@ -1,4 +1,4 @@
-# artifact-builder
+# osimage-builder
 Build virtual machine images using packer
 
 ### Prerequisites
@@ -46,7 +46,7 @@ packer-ubuntu-trusty-14.04-amd64-fresh-virtualbox/ubuntu-trusty-14.04-amd64-fres
 ```
 OS_RELEASE=trusty-14.04 packer build ubuntu-base-amd64-vagrant.json
 ```
-This should give you the artifact ready for use with vagrant:
+This should give you the osimage ready for use with vagrant:
 builds/base-ubuntu-trusty-14.04-amd64-vagrant.box
 
 ### Use vagrant to bring up a role locally

@@ -3,8 +3,8 @@ version: '3'
 services:
   base-build:
     build: .
-    image: artifact-builder:latest
-    working_dir: /root/artifact-builder
+    image: osimage-builder:latest
+    working_dir: /root/osimage-builder
     environment:
       AWS_ACCESS_KEY_ID:
       AWS_SECRET_ACCESS_KEY:
@@ -16,5 +16,5 @@ services:
              env;
              packer build ${TEMPLATE:-ubuntu-base-amd64-ebs.json}"
     volumes:
-      - .:/root/artifact-builder:ro
+      - .:/root/osimage-builder:ro
       - ~/.aws/:/root/.aws:ro
