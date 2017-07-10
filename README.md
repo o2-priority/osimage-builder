@@ -37,14 +37,14 @@ PROJECT="YourProject" docker-compose up
 ### Build Vagrant images
 #### 1. Build fresh virtualbox image
 ```
-packer build ubuntu-trusty-14.04-amd64-virtualbox-fresh.json
+packer build templates/ubuntu-trusty-14.04-amd64-virtualbox-fresh.json
 ```
 This should output the following image:
 packer-ubuntu-trusty-14.04-amd64-fresh-virtualbox/ubuntu-trusty-14.04-amd64-fresh.ovf
 
 #### 2. Build roles using image from step 1
 ```
-OS_RELEASE=trusty-14.04 packer build ubuntu-base-amd64-vagrant.json
+OS_RELEASE=trusty-14.04 packer build templates/ubuntu-base-amd64-vagrant.json
 ```
 This should give you the osimage ready for use with vagrant:
 builds/base-ubuntu-trusty-14.04-amd64-vagrant.box
