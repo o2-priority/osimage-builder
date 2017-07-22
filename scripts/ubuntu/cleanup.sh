@@ -46,10 +46,10 @@ apt-get -y autoremove
 apt-get -y clean
 
 # Remove docs
-rm -rf /usr/share/doc/*
+rm -vrf /usr/share/doc/*
 
 # Remove caches
-find /var/cache -type f -exec rm -rf {} \;
+find /var/cache -type f -exec rm -vrf {} \;
 
 # delete any logs that have built up during the install
-find /var/log/ -name '*.log' -exec rm -f {} \;
+find /var/log/ -name '*.log' -exec rm -vf {} \;
