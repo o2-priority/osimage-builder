@@ -9,7 +9,6 @@
           "name": "{{ user `project`}}-base-ubuntu-{{ user `os_release` }}-amd64-ebs-*",
           "root-device-type": "ebs"
         },
-        "owners": ["218067387106"],
         "most_recent": true
       },
       "instance_type": "{{ user `aws_instance_type`}}",
