@@ -12,6 +12,3 @@ if [ "$major_version" -le "16" ]; then
   rm -vf /lib/udev/rules.d/75-persistent-net-generator.rules
   rm -vrf /dev/.udev/ /var/lib/dhcp3/* /var/lib/dhcp/*
 fi
-
-# Adding a 2 sec delay to the interface up, to make the dhclient happy
-echo "pre-up sleep 2" >>/etc/network/interfaces
