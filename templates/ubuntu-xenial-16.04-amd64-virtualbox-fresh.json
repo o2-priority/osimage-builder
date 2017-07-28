@@ -78,10 +78,10 @@
     "iso_name": "ubuntu-16.04.1-server-amd64.iso",
     "memory": "512",
     "mirror": "http://old-releases.ubuntu.com/releases",
-    "mirror_directory": "14.04.1",
-    "name": "ubuntu-14.04",
+    "mirror_directory": "16.04.1",
+    "name": "ubuntu-16.04",
     "preseed_path": "preseed.cfg",
-    "template": "ubuntu-trusty-14.04-amd64-fresh",
+    "template": "ubuntu-trusty-16.04-amd64-fresh",
     "version": "2.1.TIMESTAMP"
   }
 }
