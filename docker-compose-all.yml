@@ -14,7 +14,7 @@ services:
              export AWS_PROFILE=${AWS_PROFILE:-default};
              export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-eu-west-1};
              env;
-             packer build ubuntu-base-amd64-ebs.json"
+             packer build templates/ubuntu-base-amd64-ebs.json"
     volumes:
       - .:/root/osimage-builder:ro
       - ~/.aws/:/root/.aws:ro
@@ -31,7 +31,7 @@ services:
              export AWS_PROFILE=${AWS_PROFILE:-default};
              export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-eu-west-1};
              env;
-             packer build ubuntu-docker-amd64-ebs.json"
+             packer build templates/ubuntu-docker-amd64-ebs.json"
     volumes:
       - .:/root/osimage-builder:ro
       - ~/.aws/:/root/.aws:ro
