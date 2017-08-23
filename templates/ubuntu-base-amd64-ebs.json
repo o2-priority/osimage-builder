@@ -53,6 +53,7 @@
       "scripts": [
         "scripts/ubuntu/update.sh",
         "scripts/common/sshd.sh",
+        "scripts/common/ntpd.sh",
         "scripts/ubuntu/networking.sh",
         "scripts/ubuntu/sudoers.sh",
         "scripts/ubuntu/ansible.sh",
