@@ -4,40 +4,15 @@
 #The script gets a list of iam users in the group ssh-access using the aws cli then adds them as local users if they dont exist
 #any users that have been removed from the ssh-access group are deleted.
 
+ubuntu_version="`lsb_release -r | awk '{print $2}'`"
+major_version="`echo $ubuntu_version | awk -F. '{print $1}'`"
+
 #install required tools
 if ! which aws  || ! which jq; then
   apt-get update
   apt-get install -y libyaml-dev python-dev python-pip jq
   pip install awscli
 fi
-
-cat > /etc/systemd/system/iam-user-management.service << EOF
-[Unit]
-Description=Add/remove Users in IAM ssh-access group
-
-[Service]
-TimeoutStartSec=60
-Type=oneshot
-User=root
-ExecStart=/usr/local/bin/IAMuserManager.sh
-
-[Install]
-WantedBy=multi-user.target
-
-EOF
-
-cat > /etc/systemd/system/iam-user-management.timer << EOF
-[Unit]
-Description=Add/remove Users in IAM ssh-access group
-
-[Timer]
-OnBootSec=0min
-OnCalendar=*:0/5
-Persistent=true
-
-[Install]
-WantedBy=timers.target
-EOF
 
 cat > /usr/local/bin/IAMuserManager.sh << EOF
 #!/bin/bash
@@ -78,5 +53,45 @@ done
 EOF
 
 chmod +x /usr/local/bin/IAMuserManager.sh
+
+ubuntu_version="`lsb_release -r | awk '{print $2}'`"
+major_version="`echo $ubuntu_version | awk -F. '{print $1}'`"
+
+output() {
+  echo "$1"
+}
+
+if [ "$major_version" -eq "16" ]; then
+
+cat > /etc/systemd/system/iam-user-management.service << EOF
+[Unit]
+Description=Add/remove Users in IAM ssh-access group
+
+[Service]
+TimeoutStartSec=60
+Type=oneshot
+User=root
+ExecStart=/usr/local/bin/IAMuserManager.sh
+
+[Install]
+WantedBy=multi-user.target
+
+EOF
+
+cat > /etc/systemd/system/iam-user-management.timer << EOF
+[Unit]
+Description=Add/remove Users in IAM ssh-access group
+
+[Timer]
+OnBootSec=0min
+OnCalendar=*:0/5
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+
 systemctl enable iam-user-management.timer
 systemctl start iam-user-management.timer
+
+fi
