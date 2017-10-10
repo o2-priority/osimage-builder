@@ -40,7 +40,7 @@ for user in \$IAM_USERS; do
   if ! echo \$LOCAL_USERS | grep -q \$user; then
     id \$user >/dev/null 2>&1 || \
     log "adding local user \${user} found in IAM" && \
-    useradd --create-home -c "IAMuser" "\${user}"  > /dev/null 2>&1
+    useradd --create-home -m -G sudo -c "IAMuser" "\${user}"  > /dev/null 2>&1
   fi
 done
 
@@ -94,4 +94,6 @@ EOF
 systemctl enable iam-user-management.timer
 systemctl start iam-user-management.timer
 
+else
+  echo '*/15 * * * * root /usr/local/bin/IAMuserManager.sh' > /etc/cron.d/IAMuserManager
 fi
