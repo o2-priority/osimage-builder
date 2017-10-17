@@ -57,8 +57,6 @@
         "scripts/ubuntu/networking.sh",
         "scripts/ubuntu/sudoers.sh",
         "scripts/ubuntu/ansible.sh",
-        "scripts/ubuntu/install-IAMuserManager.sh",
-        "scripts/ubuntu/install-IAMauthorizedKeys.sh",
         "scripts/ubuntu/cleanup.sh",
         "scripts/common/minimize.sh"
       ]
