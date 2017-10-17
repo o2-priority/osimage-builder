@@ -53,6 +53,3 @@ find /var/cache -type f -exec rm -vrf {} \;
 
 # delete any logs that have built up during the install
 find /var/log/ -name '*.log' -exec rm -vf {} \;
-
-# clear authorized keys file
-cat /dev/null > /home/ubuntu/.ssh/authorized_keys
