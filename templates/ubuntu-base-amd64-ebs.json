@@ -12,6 +12,8 @@
         "owners": ["099720109477"],
         "most_recent": true
       },
+      "subnet_id": "subnet-2827fe70",
+      "security_group_id": "sg-763f1010",
       "instance_type": "{{ user `aws_instance_type`}}",
       "ssh_username": "ubuntu",
       "ami_name": "{{ user `project`}}-{{ user `role` }}-ubuntu-{{ user `os_release` }}-amd64-ebs-{{ user `version`}}",
