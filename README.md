@@ -54,3 +54,12 @@ builds/base-ubuntu-trusty-14.04-amd64-vagrant.box
 vagrant box add builds/base-ubuntu-trusty-14.04-amd64-vagrant.box --name base-ubuntu-trusty-14.04-amd64-vagrant.box
 vagrant up
 ```
+
+> Note:
+>    - By default, temporary ec2 instance launched for AMI build is launched in
+>      a default VPC. Unfortunately, default VPC is not available on EC2-Classic
+>      account e.g. pm-ref and pm-live.
+>    - So subnet ID specified in packer template json file is one of priority-tools
+>      VPC subnets (public subnet on eu-west-1a).
+>    - security group id (sg-763f1010) is that of priority-tools-bastion-global because it allows inbound SSH traffic
+>    - Can a default VPC be created? https://forums.aws.amazon.com/thread.jspa?threadID=225569
