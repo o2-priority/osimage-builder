@@ -58,7 +58,25 @@
         "scripts/ubuntu/ntpd.sh",
         "scripts/ubuntu/networking.sh",
         "scripts/ubuntu/sudoers.sh",
-        "scripts/ubuntu/ansible.sh",
+        "scripts/ubuntu/ansible.sh"
+      ]
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "ansible/local.yml",
+      "playbook_dir": "ansible",
+      "galaxy_file": "ansible/requirements.yml"
+    },
+    {
+      "type": "file",
+      "source": "/tmp/cis-benchmark.report",
+      "destination": "./reports/cis-benchmark.report",
+      "direction": "download"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "scripts": [
         "scripts/ubuntu/cleanup.sh",
         "scripts/common/minimize.sh"
       ]

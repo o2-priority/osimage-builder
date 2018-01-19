@@ -2,3 +2,5 @@ builds/
 packer*-virtualbox/
 packer_cache/
 .vagrant
+*.swp
+reports/*

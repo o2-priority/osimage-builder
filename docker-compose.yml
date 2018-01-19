@@ -16,5 +16,6 @@ services:
              env;
              packer build ${TEMPLATE:-templates/ubuntu-base-amd64-ebs.json}"
     volumes:
+      - ./reports:/root/osimage-builder/reports:rw
       - .:/root/osimage-builder:ro
       - ~/.aws/:/root/.aws:ro
