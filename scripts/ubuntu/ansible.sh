@@ -9,4 +9,10 @@ output() {
 output "Update the package list"
 apt-get -y update
 
-apt-get install -y python-minimal
+output "Add ansible apt repository"
+apt-get install software-properties-common
+apt-add-repository ppa:ansible/ansible
+apt-get -y update
+
+output "Install ansible pip package"
+apt-get install -y python-minimal python-pip ansible
