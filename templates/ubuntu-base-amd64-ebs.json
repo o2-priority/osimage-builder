@@ -82,6 +82,12 @@
       ]
     }
   ],
+  "post-processors": [
+    {
+      "type": "manifest",
+      "output": "./reports/packer-manifest.json"
+    }
+  ],
   "variables": {
     "project": "{{env `PROJECT`}}",
     "os_release": "{{env `OS_RELEASE`}}",
