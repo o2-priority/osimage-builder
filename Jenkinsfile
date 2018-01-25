@@ -48,7 +48,7 @@ node {
             echo "Grant pm-live account launch permission for AMI built"
             sh  """
                 cd ${workspace}
-                ami_id=$(jq '.builds | sort_by(.build_time) | .[-1] | .artifact_id' reports/packer-manifest.json | cut -d':' -f2 | tr '"' ' ')
+                ami_id=\$(jq '.builds | sort_by(.build_time) | .[-1] | .artifact_id' reports/packer-manifest.json | cut -d':' -f2 | tr '"' ' ')
                 aws ec2 modify-image-attribute --image-id \${ami_id} --launch-permission "{\"Add\":[{\"UserId\":\"${pmLiveAwsAccountId}\"}]}"
                 """
         }
