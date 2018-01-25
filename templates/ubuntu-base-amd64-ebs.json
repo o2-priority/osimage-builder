@@ -33,7 +33,7 @@
         "OS_Version": "Ubuntu",
         "Version": "{{ user `version` }}"
       },
-      "ami_users": ["948420901076","045281700019"],
+      "ami_users": ["995352824234"],
       "ami_block_device_mappings": [{
         "delete_on_termination": true,
         "device_name": "/dev/sda1",

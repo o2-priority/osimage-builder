@@ -6,7 +6,7 @@ node {
     workspace = pwd()
 
     osImageBuilderRepo = 'osimage-builder'
-    pmLiveAwsAccountId = '995352824234'
+    //pmLiveAwsAccountId = '995352824234'
     env.PROJECT        = 'priority-microdc'
     env.OS_RELEASE     = 'trusty-14.04'
     env.AWS_PROFILE    = 'o2priority_ref'
@@ -44,14 +44,14 @@ node {
 			)
         }
 
-        stage("Expose AMI to pm-live Account") {
-            echo "Grant pm-live account launch permission for AMI built"
-            sh  """
-                cd ${workspace}
-                ami_id=\$(jq '. as \$orig | .last_run_uuid as \$latest | \$orig.builds[] | select(.packer_run_uuid == \$latest) | .artifact_id' reports/packer-manifest.json | cut -d':' -f2 | tr '"' ' ')
-                aws ec2 modify-image-attribute --image-id \${ami_id} --launch-permission '{\"Add\":[{\"UserId\":\"${pmLiveAwsAccountId}\"}]}'
-                """
-        }
+        //stage("Expose AMI to pm-live Account") {
+        //    echo "Grant pm-live account launch permission for AMI built"
+        //    sh  """
+        //        cd ${workspace}
+        //        ami_id=\$(jq '. as \$orig | .last_run_uuid as \$latest | \$orig.builds[] | select(.packer_run_uuid == \$latest) | .artifact_id' reports/packer-manifest.json | cut -d':' -f2 | tr '"' ' ')
+        //        aws ec2 modify-image-attribute --image-id \${ami_id} --launch-permission '{\"Add\":[{\"UserId\":\"${pmLiveAwsAccountId}\"}]}'
+        //        """
+        //}
 
     } //AnsiColorBuildWrapper
 }
