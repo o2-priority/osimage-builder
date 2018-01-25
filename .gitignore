@@ -3,4 +3,6 @@ packer*-virtualbox/
 packer_cache/
 .vagrant
 *.swp
-reports/*
+reports/*.report
+reports/*manifest.json
+reports/*.log
